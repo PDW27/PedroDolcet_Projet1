@@ -1,0 +1,42 @@
+{% extends "front.html.twig" %}
+
+{% block titre %} Gestion d'employes {% endblock %}
+
+{% block body %}
+<main class="row">
+    <h1>Gestion d'employes</h1>
+    {% for message in app.flashes("message") %}
+        <div class="col-12 alert alert-success my-3">{{ message }}</div>
+    {% endfor %}
+     {% for message in app.flashes('erreur') %}
+        <div class="alert alert-danger my-3">{{ message }}</div>
+    {% endfor %}
+    <tbody>
+        {% for employe in employes %}
+        <article class="col-3 border mt-3">
+        <div class="my-3">
+        </div>
+            <h2>{{ employe.prenom }}</h2>
+            <h2>{{ employe.nom }}</h2>
+            <p>{{ employe.telephone }}</p>
+            <p>{{ employe.email }}</p>
+            <p>{{ employe.adresse }}</p>
+            <p>{{ employe.poste }}</p>
+            <p>{{ employe.salaire }}</p>
+            <p>{{ employe.datedenaissance | date ("d/m/Y") }}</p>
+                <a href="{{ path( "employe_update" , { "id" : employe.id } ) }}" class="btn btn-warning">modifier</a>
+                <a href="{{ path( "employe_suppr" , { "id" : employe.id } ) }}" class="ms-3 btn btn-danger">suprimer</a>
+            </article>
+        {% else %}
+            <tr>
+                <td colSpan="4">Aucun employe pour l'instant</td>
+                    <a href="{{ path("employe_new") }}" class="btn btn-success">Ajouter un premier employe</a>
+            </tr>
+            
+        {% endfor %}
+    </tbody>
+    
+</main>
+{% endblock %}
+
+            
